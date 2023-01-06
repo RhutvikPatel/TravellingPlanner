@@ -3,8 +3,8 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 
 const ItinerarySchema = new mongoose.Schema({
     userId: {
-        type: String,
-        // ref: "user"
+        type: ObjectId,
+        ref: "user"
     },
     from: {
         type: String,

@@ -16,5 +16,5 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
 app.use("/",route)
 
 app.listen(process.env.PORT, ()=>
-    console.log("Express App Running On Port 3000")
+    console.log(`Express App Running On Port: ${process.env.PORT}`)
 )

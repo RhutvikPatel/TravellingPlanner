@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const { isValidObjectId } = require("../validators/validate");
-const userModel = require("../models/userModel")
+const { isValidObjectId } = require("../validators/validator")
+const userModel = require("../models/user")
 
 //====================================================================
 
@@ -26,18 +26,18 @@ const verifyToken = function (req, res, next) {
 //====================================================================
 
 const verifyTokenAndAuthorization = async (req, res, next) => {
-  if (!isValidObjectId(req.params.userId))
+  if (!isValidObjectId(req.params.id))
     return res.status(400).send({ status: false, message: "userId is not valid" });
 
 
-  let user = await userModel.findById(req.params.userId);
+  let user = await userModel.findById(req.params.id);
 
   if (!user) {
     return res.status(404).send({ status: false, messgage: "user does not exists" });
   }
 
   verifyToken(req, res, () => {
-    if (req.user.userId === req.params.userId) {
+    if (req.user.userId === req.params.id) {
       next();
     } else {
       return res.status(403).json({ status: false, message: "You are not authorized!" });
